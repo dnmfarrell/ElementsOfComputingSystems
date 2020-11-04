@@ -1,6 +1,6 @@
 # Elements of Computing Systems
 
-Solutions to the Nisan and Shocken textbook (1st edition).
+Solutions to the Nisan and Schocken textbook (1st edition).
 
 ## License
 Copyright 2020 David Farrell
