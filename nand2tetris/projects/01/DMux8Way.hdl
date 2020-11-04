@@ -5,10 +5,14 @@
 
 /**
  * 8-way demultiplexor:
- * {a, b, c, d, e, f, g, h} = {in, 0, 0, 0, 0, 0, 0, 0} if sel == 000
- *                            {0, in, 0, 0, 0, 0, 0, 0} if sel == 001
- *                            etc.
- *                            {0, 0, 0, 0, 0, 0, 0, in} if sel == 111
+ * {a, b, c, d, e, f, g, h} = {in, 0, 0, 0, 0, 0, 0, 0} if sel == 000 a
+ *                            {0, in, 0, 0, 0, 0, 0, 0} if sel == 001 b
+ *                            {0, 0, in, 0, 0, 0, 0, 0} if sel == 010 c
+ *                            {0, 0, 0, in, 0, 0, 0, 0} if sel == 011 d
+ *                            {0, 0, 0, 0, in, 0, 0, 0} if sel == 100 e
+ *                            {0, 0, 0, 0, 0, in, 0, 0} if sel == 101 f
+ *                            {0, 0, 0, 0, 0, 0, in, 0} if sel == 110 g
+ *                            {0, 0, 0, 0, 0, 0, 0, in} if sel == 111 h
  */
 
 CHIP DMux8Way {
@@ -16,5 +20,35 @@ CHIP DMux8Way {
     OUT a, b, c, d, e, f, g, h;
 
     PARTS:
-    // Put your code here:
+    Mux(a=in, b=false, sel=sel[0], out=a0);
+    Mux(a=a0, b=false, sel=sel[1], out=a1);
+    Mux(a=a1, b=false, sel=sel[2], out=a);
+
+    Mux(a=false, b=in, sel=sel[0], out=b0);
+    Mux(a=b0, b=false, sel=sel[1], out=b1);
+    Mux(a=b1, b=false, sel=sel[2], out=b);
+
+    Mux(a=in, b=false, sel=sel[0], out=c0);
+    Mux(a=false, b=c0, sel=sel[1], out=c1);
+    Mux(a=c1, b=false, sel=sel[2], out=c);
+
+    Mux(a=false, b=in, sel=sel[0], out=d0);
+    Mux(a=false, b=d0, sel=sel[1], out=d1);
+    Mux(a=d1, b=false, sel=sel[2], out=d);
+
+    Mux(a=in, b=false, sel=sel[0], out=e0);
+    Mux(a=e0, b=false, sel=sel[1], out=e1);
+    Mux(a=false, b=e1, sel=sel[2], out=e);
+
+    Mux(a=false, b=in, sel=sel[0], out=f0);
+    Mux(a=f0, b=false, sel=sel[1], out=f1);
+    Mux(a=false, b=f1, sel=sel[2], out=f);
+
+    Mux(a=in, b=false, sel=sel[0], out=g0);
+    Mux(a=false, b=g0, sel=sel[1], out=g1);
+    Mux(a=false, b=g1, sel=sel[2], out=g);
+
+    Mux(a=false, b=in, sel=sel[0], out=h0);
+    Mux(a=false, b=h0, sel=sel[1], out=h1);
+    Mux(a=false, b=h1, sel=sel[2], out=h);
 }
